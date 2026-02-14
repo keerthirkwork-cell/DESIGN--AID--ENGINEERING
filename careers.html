@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Careers | DESIGN AID ENGINEERING</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root { --primary: #0a0e27; --accent: #0066ff; --gold: #d4af37; --light: #f8f9fa; --gray: #6c757d; --dark: #070a1a; --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--primary); background: var(--light); overflow-x: hidden; }
+
+/* Navigation */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 15px 60px; display: flex; justify-content: space-between; align-items: center; transition: all 0.4s var(--transition); background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0,0,0,0.1); }
+nav.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 4px 30px rgba(0,0,0,0.15); padding: 10px 60px; }
+.logo-wrap { display: flex; align-items: center; gap: 20px; }
+.logo-symbol { width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; transition: transform 0.3s ease; flex-shrink: 0; }
+.logo-symbol img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+.logo-symbol:hover { transform: scale(1.1); }
+.brand-text { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: var(--primary); text-transform: uppercase; font-family: 'Inter', sans-serif; line-height: 1.2; }
+.logo-subtitle { font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; transition: color 0.3s; }
+nav.scrolled .logo-subtitle { color: var(--gray); }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; z-index: 1001; }
+.mobile-toggle span { width: 25px; height: 2px; background: var(--primary); transition: all 0.3s; }
+.mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+.nav-links { display: flex; gap: 40px; align-items: center; }
+.nav-links a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 15px; position: relative; padding: 8px 0; transition: all 0.3s; }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { background: var(--accent); color: white !important; padding: 14px 32px !important; border-radius: 30px; box-shadow: 0 4px 15px rgba(0,102,255,0.3); transition: all 0.3s !important; }
+.nav-cta:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,102,255,0.4); }
+.nav-cta::after { display: none !important; }
+
+/* Hero Section */
+.careers-hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--primary) 0%, #1a1f4b 100%); padding: 120px 60px 60px; text-align: center; color: white; }
+.careers-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 64px); margin-bottom: 20px; }
+.careers-hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto 30px; }
+.hero-stats { display: flex; justify-content: center; gap: 60px; margin-top: 40px; }
+.stat { text-align: center; }
+.stat-number { font-size: 48px; font-weight: 800; color: var(--gold); display: block; }
+.stat-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; }
+
+/* Job Section */
+.openings-section { padding: 100px 60px; background: white; }
+.section-header { text-align: center; margin-bottom: 60px; }
+.section-header h2 { font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 15px; }
+.section-header p { color: var(--gray); font-size: 18px; }
+.jobs-container { max-width: 1000px; margin: 0 auto; }
+.job-card { background: var(--light); border-radius: 20px; padding: 40px; margin-bottom: 30px; border: 1px solid rgba(0,0,0,0.05); transition: all 0.4s; }
+.job-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-color: var(--accent); }
+.job-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+.job-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--primary); }
+.job-meta { display: flex; gap: 20px; flex-wrap: wrap; }
+.job-tag { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; background: rgba(0,102,255,0.1); color: var(--accent); border-radius: 50px; font-size: 13px; font-weight: 600; }
+.job-tag.gold { background: rgba(212,175,55,0.1); color: var(--gold); }
+.job-description { color: var(--gray); line-height: 1.8; margin-bottom: 25px; }
+.job-requirements { margin-bottom: 25px; }
+.job-requirements h4 { font-size: 16px; margin-bottom: 15px; color: var(--primary); }
+.job-requirements ul { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.job-requirements li { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--gray); }
+.job-requirements li::before { content: '✓'; color: var(--accent); font-weight: bold; }
+.apply-btn { display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: var(--accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; border: none; cursor: pointer; font-size: 16px; }
+.apply-btn:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,102,255,0.3); }
+
+/* Application Section */
+.application-section { padding: 100px 60px; background: var(--light); }
+.application-container { max-width: 800px; margin: 0 auto; text-align: center; }
+.application-section h2 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 20px; }
+.application-section > p { color: var(--gray); font-size: 18px; margin-bottom: 40px; }
+.form-wrapper { background: white; border-radius: 24px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+.google-form-container { width: 100%; height: 1200px; border: none; border-radius: 12px; }
+
+/* Spontaneous Section */
+.spontaneous-section { padding: 100px 60px; background: var(--primary); color: white; text-align: center; }
+.spontaneous-section h2 { font-family: 'Playfair Display', serif; font-size: 42px; margin-bottom: 20px; }
+.spontaneous-section p { font-size: 18px; opacity: 0.9; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+.cv-upload-box { max-width: 600px; margin: 0 auto; padding: 50px; border: 2px dashed rgba(255,255,255,0.3); border-radius: 20px; background: rgba(255,255,255,0.05); transition: all 0.4s; }
+.cv-upload-box:hover { border-color: var(--gold); background: rgba(255,255,255,0.1); }
+.cv-upload-box i { font-size: 48px; color: var(--gold); margin-bottom: 20px; }
+.cv-upload-box h3 { font-size: 24px; margin-bottom: 15px; }
+.cv-upload-box p { margin-bottom: 25px; font-size: 16px; }
+.upload-btn { display: inline-flex; align-items: center; gap: 10px; padding: 18px 36px; background: var(--gold); color: var(--primary); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; }
+.upload-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,175,55,0.3); }
+.email-direct { margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); }
+.email-direct p { margin-bottom: 10px; font-size: 14px; opacity: 0.7; }
+.email-direct a { color: var(--gold); text-decoration: none; font-size: 20px; font-weight: 600; }
+
+/* Footer */
+footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 0; font-size: 15px; }
+.footer-main { max-width: 1400px; margin: 0 auto; padding: 80px 60px 40px; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 60px; }
+.footer-logo-wrap { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; text-decoration: none; }
+.footer-logo-symbol { width: 55px; height: 55px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; padding: 8px; transition: all 0.4s var(--transition); }
+.footer-logo-symbol img { width: 100%; height: 100%; object-fit: contain; }
+.footer-logo-wrap:hover .footer-logo-symbol { transform: scale(1.08) rotate(3deg); border-color: var(--accent); background: rgba(0,102,255,0.1); }
+.footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: white; margin-bottom: 5px; }
+.footer-brand .tagline { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+.footer-brand p { line-height: 1.8; margin-bottom: 25px; font-size: 14px; max-width: 100%; word-wrap: break-word; }
+.footer-column h4 { color: white; font-size: 16px; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; position: relative; padding-bottom: 10px; }
+.footer-column h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--accent); }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: all 0.3s; display: flex; align-items: center; gap: 10px; }
+.footer-links a::before { content: '→'; opacity: 0; transform: translateX(-10px); transition: all 0.3s; color: var(--accent); }
+.footer-links a:hover { color: white; padding-left: 5px; }
+.footer-links a:hover::before { opacity: 1; transform: translateX(0); }
+.footer-contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; font-size: 14px; }
+.footer-contact-item i { color: var(--gold); font-size: 16px; margin-top: 3px; flex-shrink: 0; }
+.footer-contact-item div strong { color: white; display: block; margin-bottom: 3px; font-weight: 600; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 30px 60px; background: rgba(0,0,0,0.2); }
+.footer-bottom-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.footer-social { display: flex; gap: 15px; }
+.footer-social a { width: 45px; height: 45px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: all 0.4s; text-decoration: none; }
+.footer-social a:hover { background: var(--accent); transform: translateY(-5px); border-color: var(--accent); }
+.footer-social a.whatsapp:hover { background: #25D366; border-color: #25D366; }
+.footer-social a.linkedin:hover { background: #0077b5; border-color: #0077b5; }
+.footer-legal { display: flex; gap: 30px; font-size: 13px; }
+.footer-legal a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s; }
+.footer-legal a:hover { color: var(--gold); }
+
+/* Mobile Responsive */
+@supports (padding: max(0px)) {
+    nav { padding-left: max(15px, env(safe-area-inset-left)); padding-right: max(15px, env(safe-area-inset-right)); }
+}
+
+@media (max-width: 1024px) { 
+    nav { padding: 15px 30px; } 
+    nav.scrolled { padding: 10px 30px; }
+    .nav-links { position: fixed; top: 0; right: -100%; width: 80%; max-width: 400px; height: 100vh; background: white; flex-direction: column; padding: 100px 40px; gap: 30px; transition: right 0.4s var(--transition); box-shadow: -10px 0 50px rgba(0,0,0,0.1); } 
+    .nav-links.active { right: 0; } 
+    .mobile-toggle { display: flex; } 
+    .careers-hero { padding: 100px 30px 60px; } 
+    .hero-stats { gap: 30px; } 
+    .stat-number { font-size: 36px; } 
+    .openings-section, .application-section, .spontaneous-section { padding: 60px 30px; } 
+    .job-requirements ul { grid-template-columns: 1fr; } 
+    .form-wrapper { padding: 25px; }
+    .footer-main { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .google-form-container { height: 1000px; }
+}
+
+@media (max-width: 768px) { 
+    .logo-symbol { width: 60px; height: 60px; } 
+    .brand-text { font-size: 18px; } 
+    .careers-hero h1 { font-size: 28px; } 
+    .careers-hero p { font-size: 16px; } 
+    .hero-stats { flex-direction: column; gap: 20px; } 
+    .section-header h2, .application-section h2, .spontaneous-section h2 { font-size: 28px; } 
+    .job-card { padding: 25px; } 
+    .job-title { font-size: 22px; } 
+    .job-meta { gap: 10px; }
+    .job-tag { font-size: 12px; padding: 6px 12px; }
+    .cv-upload-box { padding: 30px 20px; }
+    .footer-main { grid-template-columns: 1fr; padding: 60px 25px 30px; gap: 40px; }
+    .footer-bottom { padding: 20px 25px; }
+    .footer-bottom-content { flex-direction: column; text-align: center; }
+    .google-form-container { height: 800px; }
+    .upload-btn { padding: 14px 28px; font-size: 14px; }
+    .apply-btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 480px) {
+    .careers-hero { padding: 80px 20px 40px; }
+    .careers-hero h1 { font-size: 26px; }
+    .stat-number { font-size: 32px; }
+    .job-header { flex-direction: column; }
+    .job-title { font-size: 20px; }
+    .job-requirements ul { grid-template-columns: 1fr; }
+    .application-section { padding: 40px 20px; }
+    .form-wrapper { padding: 20px; }
+    .google-form-container { height: 700px; }
+    .spontaneous-section { padding: 60px 20px; }
+    .cv-upload-box { padding: 25px 15px; }
+    .email-direct a { font-size: 18px; }
+    .upload-btn { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="logo-wrap">
+    <a href="index.html" class="logo-symbol">
+      <img src="logo-symbol.png.jpeg.jpeg" alt="DESIGN AID ENGINEERING">
+    </a>
+    <div class="logo-text">
+      <div class="brand-text">DESIGN AID ENGINEERING</div>
+      <div class="logo-subtitle">Applied Innovation in design</div>
+    </div>
+  </div>
+  <div class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#services">Services</a>
+    <a href="careers.html">Careers</a>
+    <a href="index.html#contact">Contact</a>
+    <a href="https://wa.me/919611391279" class="nav-cta" target="_blank">Get Quote</a>
+  </div>
+</nav>
+
+<section class="careers-hero">
+  <div>
+    <h1>Build Your Career With Us</h1>
+    <p>Join a team of passionate engineers shaping the future of product development.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-number">20+</span><span class="stat-label">Engineers</span></div>
+      <div class="stat"><span class="stat-number">15+</span><span class="stat-label">Years Excellence</span></div>
+      <div class="stat"><span class="stat-number">50+</span><span class="stat-label">Projects</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="openings-section" id="openings">
+  <div class="section-header">
+    <h2>Current Openings</h2>
+    <p>Explore opportunities to grow with us</p>
+  </div>
+  <div class="jobs-container" id="jobsContainer"></div>
+</section>
+
+<section class="application-section">
+  <div class="application-container">
+    <h2>Apply Now</h2>
+    <p>Fill out the application form below. We review all applications carefully.</p>
+    <div class="form-wrapper">
+      <iframe class="google-form-container" src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
+    </div>
+  </div>
+</section>
+
+<section class="spontaneous-section">
+  <h2>Don't See the Right Fit?</h2>
+  <p>We're always looking for talented individuals. Send us your CV.</p>
+  <div class="cv-upload-box">
+    <i class="fas fa-cloud-upload-alt"></i>
+    <h3>Send Us Your CV</h3>
+    <p>Have talent? Send your resume and we'll keep you in mind.</p>
+    <a href="mailto:ashoka.s@designaidengineering.com?subject=Spontaneous%20Application" class="upload-btn"><i class="fas fa-envelope"></i> Send CV via Email</a>
+    <div class="email-direct">
+      <p>Or contact directly:</p>
+      <a href="tel:+919535234069">+91 95352 34069 (Ashoka S)</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo-wrap">
+        <div class="footer-logo-symbol"><img src="logo-symbol.png.jpeg.jpeg" alt="DESIGN AID ENGINEERING"></div>
+        <div><h3>DESIGN AID ENGINEERING</h3><span class="tagline">Applied Innovation in design</span></div>
+      </a>
+      <p>End-to-end engineering excellence from concept to production. Delivering uncompromising quality across Aerospace, Healthcare, Industrial, and Transportation sectors.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#about">About Us</a></li>
+        <li><a href="index.html#services">Our Services</a></li>
+        <li><a href="careers.html">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="index.html#services">New Product Development</a></li>
+        <li><a href="index.html#services">Reverse Engineering</a></li>
+        <li><a href="index.html#services">Material Handling</a></li>
+        <li><a href="index.html#services">Aerospace & Defence</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Contact Info</h4>
+      <div class="footer-contact-item">
+        <i class="fas fa-map-marker-alt"></i>
+        <div>
+          <strong>Address</strong>
+          Plot #9, 3rd Main, 10th Cross, Peenya, Bangalore
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-phone"></i>
+        <div>
+          <strong>Phone</strong>
+          +91 96113 91279
+        </div>
+      </div>
+      <div class="footer-contact-item">
+        <i class="fas fa-clock"></i>
+        <div>
+          <strong>Working Hours</strong>
+          Mon - Sat: 9:00 AM - 6:30 PM
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/design-aid-engineering" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/919611391279" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2024 DESIGN AID ENGINEERING. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Mobile Navigation
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+mobileToggle.addEventListener('click', function() { 
+    this.classList.toggle('active'); 
+    navLinks.classList.toggle('active'); 
+});
+document.querySelectorAll('#navLinks a').forEach(link => { 
+    link.addEventListener('click', () => { 
+        mobileToggle.classList.remove('active'); 
+        navLinks.classList.remove('active'); 
+    }); 
+});
+
+// Scroll effect for navbar tagline color
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+
+// Job Listings
+const jobListings = [
+  {
+    id: 1,
+    title: "Sr. Design Engineer - Autodesk Inventor",
+    department: "Engineering",
+    location: "Dabaspet, Bengaluru Rural - 562111",
+    type: "Full-time",
+    experience: "4 to 10 Years",
+    description: "We are seeking an experienced Sr. Design Engineer proficient in Autodesk Inventor to lead product development projects.",
+    requirements: [
+      "B.E. in Mechanical Engineering",
+      "4-10 years experience in mechanical design",
+      "Strong knowledge of Mechanical Design (Concept & Detail Design)",
+      "Bearing selection expertise",
+      "Knowledge of Fits and Tolerance",
+      "Pneumatic cylinder selection and application",
+      "Gear motor selection",
+      "Sprocket selection and detailing",
+      "Good Communication skills",
+      "Knowledge of GD&T, ASME Standards",
+      "Preparation of manufacturing drawings",
+      "BOM (Bill of Materials) preparation",
+      "Delivering project on time without reworks"
+    ],
+    contact: {
+      name: "Ashoka S",
+      phone: "+91 95352 34069",
+      email: "ashoka.s@designaidengineering.com"
+    }
+  }
+];
+
+function renderJobs() {
+  const container = document.getElementById('jobsContainer');
+  if (jobListings.length === 0) {
+    container.innerHTML = '<div style="text-align: center; padding: 60px; color: var(--gray);"><h3>No Current Openings</h3><p>Check back later or send us your spontaneous application.</p></div>';
+    return;
+  }
+  container.innerHTML = jobListings.map(job => `
+    <div class="job-card">
+      <div class="job-header">
+        <h3 class="job-title">${job.title}</h3>
+        <div class="job-meta">
+          <span class="job-tag"><i class="fas fa-building"></i> ${job.department}</span>
+          <span class="job-tag"><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
+          <span class="job-tag"><i class="fas fa-clock"></i> ${job.type}</span>
+          <span class="job-tag gold"><i class="fas fa-briefcase"></i> ${job.experience}</span>
+        </div>
+      </div>
+      <p class="job-description">${job.description}</p>
+      <div class="job-requirements">
+        <h4>Requirements:</h4>
+        <ul>${job.requirements.map(req => `<li>${req}</li>`).join('')}</ul>
+      </div>
+      <div style="background: rgba(0,102,255,0.05); padding: 20px; border-radius: 12px; margin-bottom: 20px; border-left: 4px solid var(--accent);">
+        <h4 style="margin-bottom: 10px; color: var(--primary);"><i class="fas fa-user" style="margin-right: 8px; color: var(--accent);"></i>Contact Person</h4>
+        <p style="margin-bottom: 5px;"><strong>${job.contact.name}</strong></p>
+        <p style="margin-bottom: 5px;"><i class="fas fa-phone" style="margin-right: 8px; color: var(--accent);"></i><a href="tel:${job.contact.phone.replace(/\s/g, '')}" style="color: var(--accent); text-decoration: none;">${job.contact.phone}</a></p>
+        <p><i class="fas fa-envelope" style="margin-right: 8px; color: var(--accent);"></i><a href="mailto:${job.contact.email}" style="color: var(--accent); text-decoration: none;">${job.contact.email}</a></p>
+      </div>
+      <a href="mailto:${job.contact.email}?subject=Application%20for%20${encodeURIComponent(job.title)}" class="apply-btn"><i class="fas fa-paper-plane"></i> Apply for this Position</a>
+    </div>
+  `).join('');
+}
+
+renderJobs();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DESIGN AID ENGINEERING | Product Development & CAD Services Bangalore</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root { 
+    --primary: #0a0e27; 
+    --accent: #0066ff; 
+    --gold: #d4af37; 
+    --light: #f8f9fa; 
+    --gray: #6c757d; 
+    --dark: #070a1a; 
+    --transition: cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; color: var(--primary); background: var(--light); overflow-x: hidden; }
+
+/* Preloader */
+#preloader { 
+    position: fixed; inset: 0; background: var(--primary); z-index: 99999; 
+    display: flex; align-items: center; justify-content: center; 
+    transition: opacity 0.5s, visibility 0.5s; 
+}
+#preloader.hidden { opacity: 0; visibility: hidden; }
+.loader-3d { width: 80px; height: 80px; position: relative; animation: rotate3d 2s linear infinite; }
+.loader-3d::before, .loader-3d::after { 
+    content: ''; position: absolute; inset: 0; border: 4px solid transparent; border-radius: 50%; 
+}
+.loader-3d::before { border-top-color: var(--accent); border-right-color: var(--accent); animation: spin 1s linear infinite; }
+.loader-3d::after { border-bottom-color: var(--gold); border-left-color: var(--gold); animation: spin 1.5s linear infinite reverse; }
+@keyframes rotate3d { 0% { transform: rotateX(0deg) rotateY(0deg); } 100% { transform: rotateX(360deg) rotateY(360deg); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Floating Contact */
+.floating-contact { 
+    position: fixed; right: 30px; bottom: 30px; display: flex; flex-direction: column; gap: 15px; 
+    z-index: 9999; opacity: 0; transform: translateY(20px); transition: all 0.4s; 
+}
+.floating-contact.visible { opacity: 1; transform: translateY(0); }
+.float-btn { 
+    width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+    color: white; font-size: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    transition: all 0.4s var(--transition); text-decoration: none; 
+}
+.float-btn:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+.whatsapp-btn { background: #25D366; animation: pulse-green 2s infinite; }
+.call-btn { background: var(--accent); animation: pulse-blue 2s infinite; }
+@keyframes pulse-green { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } }
+@keyframes pulse-blue { 0%, 100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(0, 102, 255, 0); } }
+
+/* Navigation */
+nav { 
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 15px 60px; 
+    display: flex; justify-content: space-between; align-items: center; 
+    transition: all 0.4s var(--transition); background: transparent; 
+}
+nav.scrolled { 
+    background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); 
+    box-shadow: 0 4px 30px rgba(0,0,0,0.1); padding: 10px 60px; 
+}
+.logo-wrap { display: flex; align-items: center; gap: 20px; }
+.logo-symbol { 
+    width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; 
+    transition: transform 0.3s ease; flex-shrink: 0; 
+}
+.logo-symbol img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2)); }
+.logo-symbol:hover { transform: scale(1.1); }
+nav.scrolled .logo-symbol { width: 80px; height: 80px; }
+.brand-text { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: white; text-transform: uppercase; font-family: 'Inter', sans-serif; line-height: 1.2; }
+nav.scrolled .brand-text { color: var(--primary); }
+.logo-subtitle { font-size: 11px; color: var(--gold); font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-top: 4px; opacity: 0.9; transition: color 0.4s ease; }
+nav.scrolled .logo-subtitle { color: var(--gray); }
+.mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; z-index: 1001; }
+.mobile-toggle span { width: 25px; height: 2px; background: white; transition: all 0.3s; }
+nav.scrolled .mobile-toggle span { background: var(--primary); }
+.mobile-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.mobile-toggle.active span:nth-child(2) { opacity: 0; }
+.mobile-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+.nav-links { display: flex; gap: 40px; align-items: center; }
+.nav-links a { text-decoration: none; color: white; font-weight: 600; font-size: 15px; position: relative; padding: 8px 0; transition: all 0.3s; }
+nav.scrolled .nav-links a { color: var(--primary); }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { width: 100%; }
+.nav-cta { 
+    background: var(--accent); color: white !important; padding: 14px 32px !important; 
+    border-radius: 30px; box-shadow: 0 4px 15px rgba(0,102,255,0.3); 
+    transition: all 0.3s !important; 
+}
+.nav-cta:hover { background: var(--primary); transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,102,255,0.4); }
+.nav-cta::after { display: none !important; }
+
+/* ============================================
+   FIXED HERO SECTION - FULL HEIGHT
+   ============================================ */
+.hero { 
+    height: 100vh;
+    height: 100dvh;
+    height: -webkit-fill-available;
+    min-height: 600px;
+    display: flex; 
+    align-items: center; 
+    position: relative; 
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f4b 100%); 
+    overflow: hidden; 
+    padding: 0 60px;
+    margin: 0;
+}
+
+.hero-bg { 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('cta-bg.jpg.avif') center/cover no-repeat; 
+    opacity: 0.4; 
+    transform: scale(1.1); 
+}
+@media (min-width: 1024px) { 
+    .hero-bg { animation: slowZoom 20s infinite alternate; } 
+}
+@keyframes slowZoom { from { transform: scale(1.1); } to { transform: scale(1.2); } }
+
+.hero-overlay { 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, transparent 0%, rgba(10,14,39,0.9) 70%); 
+}
+
+.hero-content { 
+    position: relative; 
+    z-index: 2; 
+    max-width: 800px; 
+    width: 100%;
+    margin-top: 80px;
+    opacity: 0; 
+    transform: translateY(50px); 
+    animation: heroEntrance 1.2s var(--transition) forwards; 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+@keyframes heroEntrance { to { opacity: 1; transform: translateY(0); } }
+
+.hero-badge { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 12px; 
+    color: var(--gold); 
+    font-size: 14px; 
+    font-weight: 700; 
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    margin-bottom: 30px; 
+    padding: 12px 24px; 
+    background: rgba(212, 175, 55, 0.1); 
+    border-radius: 50px; 
+    border: 1px solid rgba(212, 175, 55, 0.3); 
+    backdrop-filter: blur(10px); 
+}
+
+.hero h2 { 
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(36px, 5vw, 72px); 
+    font-weight: 700; 
+    color: white; 
+    line-height: 1.1; 
+    margin-bottom: 25px; 
+    letter-spacing: -2px; 
+    text-shadow: 0 10px 30px rgba(0,0,0,0.3); 
+    width: 100%;
+}
+
+.hero h2 em { color: var(--accent); font-style: normal; }
+
+.hero p { 
+    font-size: clamp(16px, 2vw, 20px); 
+    color: rgba(255,255,255,0.8); 
+    line-height: 1.6; 
+    max-width: 550px; 
+    margin-bottom: 40px; 
+    width: 100%;
+}
+
+.whatsapp-cta { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 12px; 
+    background: #25D366; 
+    color: white; 
+    padding: 20px 40px; 
+    border-radius: 50px; 
+    text-decoration: none; 
+    font-weight: 700; 
+    font-size: clamp(16px, 1.5vw, 18px); 
+    box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); 
+    transition: all 0.4s var(--transition); 
+    white-space: nowrap;
+}
+.whatsapp-cta:hover { transform: translateY(-5px); box-shadow: 0 25px 50px rgba(37, 211, 102, 0.5); }
+.whatsapp-cta i { font-size: 24px; }
+
+.response-time { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    color: rgba(255,255,255,0.7); 
+    font-size: 14px; 
+    margin-top: 20px; 
+}
+.response-time i { color: var(--gold); }
+
+.scroll-indicator { 
+    position: absolute; 
+    bottom: 40px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px; 
+    color: rgba(255,255,255,0.6); 
+    font-size: 12px; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    animation: fadeIn 1s 1.5s forwards, bounce 2s 2s infinite; 
+    opacity: 0; 
+    z-index: 10;
+}
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes bounce { 
+    0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); } 
+    40% { transform: translateX(-50%) translateY(-10px); } 
+    60% { transform: translateX(-50%) translateY(-5px); } 
+}
+
+/* About Section */
+.about-section { padding: 150px 60px; background: white; }
+.about-container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center; }
+.about-images { position: relative; height: 600px; opacity: 0; transform: translateX(-100px); transition: all 1.2s var(--transition); }
+.about-images.visible { opacity: 1; transform: translateX(0); }
+.about-img-main { position: absolute; width: 80%; height: 80%; object-fit: cover; border-radius: 30px; box-shadow: 0 30px 60px rgba(0,0,0,0.2); z-index: 2; top: 0; left: 0; }
+.about-img-secondary { position: absolute; width: 50%; height: 40%; object-fit: cover; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); z-index: 3; bottom: 0; right: 0; border: 5px solid white; }
+.about-badge { position: absolute; bottom: 20%; left: -30px; background: var(--accent); color: white; padding: 30px; border-radius: 20px; z-index: 4; box-shadow: 0 20px 40px rgba(0,102,255,0.4); text-align: center; }
+.about-badge .num { font-size: 48px; font-weight: 900; display: block; line-height: 1; }
+.about-badge .text { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.about-content { opacity: 0; transform: translateX(100px); transition: all 1.2s var(--transition); }
+.about-content.visible { opacity: 1; transform: translateX(0); }
+.about-content h2 { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; margin-bottom: 30px; line-height: 1.2; }
+.about-content > p { font-size: 18px; color: var(--gray); line-height: 1.8; margin-bottom: 20px; }
+.about-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 40px; padding-top: 40px; border-top: 1px solid rgba(0,0,0,0.1); }
+.stat-item { text-align: center; padding: 20px; border-radius: 16px; transition: all 0.4s; }
+.stat-item:hover { background: var(--light); transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.stat-item h3 { font-size: 36px; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+.stat-item p { font-size: 14px; color: var(--gray); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+
+/* Section Headers */
+.section-header { text-align: center; margin-bottom: 80px; opacity: 0; transform: translateY(50px); transition: all 0.8s var(--transition); }
+.section-header.visible { opacity: 1; transform: translateY(0); }
+.sec-tag { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; padding: 10px 24px; background: rgba(0,102,255,0.1); border-radius: 50px; }
+.sec-title { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 64px); font-weight: 700; margin-bottom: 20px; }
+.sec-subtitle { color: var(--gray); font-size: 20px; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+/* Industries Section */
+.industries-section { padding: 150px 60px; background: var(--light); }
+.industries-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1600px; margin: 0 auto; }
+.ind-card { position: relative; border-radius: 30px; overflow: hidden; height: 500px; cursor: pointer; opacity: 0; transform: translateY(100px); transition: all 0.8s var(--transition); }
+.ind-card.visible { opacity: 1; transform: translateY(0); }
+.ind-large { grid-column: span 7; height: 600px; }
+.ind-medium { grid-column: span 5; height: 600px; }
+.ind-small { grid-column: span 4; height: 400px; }
+.ind-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: all 0.8s; }
+.ind-card:hover { transform: translateY(-10px); box-shadow: 0 40px 80px rgba(0,0,0,0.3); }
+.ind-card:hover .ind-bg { transform: scale(1.1); filter: brightness(0.7); }
+.ind-1 .ind-bg { background-image: url('industrial.jpg.jpg'); }
+.ind-2 .ind-bg { background-image: url('transportation.jpg'); }
+.ind-3 .ind-bg { background-image: url('healthcare.jpg'); }
+.ind-4 .ind-bg { background-image: url('aerospace.jpg'); }
+.ind-5 .ind-bg { background-image: url('electromechanical.jpg'); }
+.ind-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,14,39,0.95) 0%, rgba(10,14,39,0.3) 50%, transparent 100%); transition: all 0.4s; }
+.ind-card:hover .ind-overlay { background: linear-gradient(to top, rgba(10,14,39,0.98) 0%, rgba(0,102,255,0.2) 100%); }
+.ind-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; color: white; transform: translateY(20px); transition: transform 0.4s; }
+.ind-card:hover .ind-content { transform: translateY(0); }
+.ind-num { font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: 3px; margin-bottom: 10px; display: block; }
+.ind-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 600; margin-bottom: 15px; }
+.ind-desc { font-size: 16px; line-height: 1.6; opacity: 0; transform: translateY(20px); transition: all 0.4s 0.1s; max-width: 90%; }
+.ind-card:hover .ind-desc { opacity: 1; transform: translateY(0); }
+
+/* Services Section */
+.services-section { padding: 150px 60px; background: white; }
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1400px; margin: 0 auto; }
+.service-card { background: var(--light); border-radius: 24px; padding: 40px; transition: all 0.5s; border: 1px solid rgba(0,0,0,0.05); position: relative; overflow: hidden; cursor: pointer; opacity: 0; transform: translateY(80px); }
+.service-card.visible { opacity: 1; transform: translateY(0); }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s; }
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { transform: translateY(-20px); box-shadow: 0 30px 60px rgba(0,0,0,0.15); background: white; }
+.service-card.featured { background: var(--primary); color: white; grid-column: span 2; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.service-img { width: 100%; height: 200px; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); border-radius: 16px; margin-top: 20px; overflow: hidden; position: relative; }
+.service-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.service-card:hover .service-img img { transform: scale(1.1); }
+.service-tag { font-size: 12px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); margin-bottom: 15px; display: block; }
+.service-card.featured .service-tag { color: var(--gold); }
+.service-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; margin-bottom: 20px; }
+.service-text { color: var(--gray); line-height: 1.8; font-size: 15px; }
+.service-card.featured .service-text { color: rgba(255,255,255,0.8); }
+
+/* Process Section */
+.process-section { padding: 150px 60px; background: var(--primary); color: white; position: relative; overflow: hidden; }
+.process-section::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.1); transform: translateX(-50%); }
+.process-container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+.process-header { text-align: center; margin-bottom: 100px; opacity: 0; transform: translateY(50px); transition: all 0.8s var(--transition); }
+.process-header.visible { opacity: 1; transform: translateY(0); }
+.process-header h2 { font-family: 'Playfair Display', serif; font-size: 56px; margin: 20px 0; }
+.timeline-item { display: grid; grid-template-columns: 1fr auto 1fr; gap: 60px; margin-bottom: 80px; align-items: center; opacity: 0; transition: all 0.8s var(--transition); }
+.timeline-item.visible { opacity: 1; }
+.timeline-item:nth-child(even) .timeline-content { grid-column: 3; text-align: left; }
+.timeline-item:nth-child(odd) .timeline-content { text-align: right; grid-column: 1; }
+.timeline-item:nth-child(odd) { transform: translateX(-100px); }
+.timeline-item:nth-child(even) { transform: translateX(100px); }
+.timeline-item.visible { transform: translateX(0); }
+.timeline-dot { width: 80px; height: 80px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; box-shadow: 0 0 0 20px rgba(0,102,255,0.1), 0 0 0 40px rgba(0,102,255,0.05); position: relative; z-index: 3; transition: all 0.4s; }
+.timeline-item:hover .timeline-dot { transform: scale(1.2); background: var(--gold); }
+.timeline-content h3 { font-size: 28px; font-weight: 700; margin-bottom: 15px; }
+.timeline-content p { color: rgba(255,255,255,0.7); line-height: 1.7; font-size: 16px; }
+.timeline-img { width: 100%; height: 250px; border-radius: 20px; overflow: hidden; margin-top: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+.timeline-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* CTA Section */
+.cta-section { background: linear-gradient(135deg, var(--accent) 0%, #0051cc 100%); padding: 150px 60px; text-align: center; position: relative; overflow: hidden; }
+.cta-bg { position: absolute; inset: 0; background: url('hero-bg.jpg') center/cover; opacity: 0.1; }
+.cta-content { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+.cta-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(32px, 5vw, 64px); color: white; margin-bottom: 30px; }
+.cta-section p { color: rgba(255,255,255,0.9); font-size: 22px; line-height: 1.6; margin-bottom: 50px; }
+.cta-btn { display: inline-flex; align-items: center; gap: 15px; padding: 25px 50px; background: white; color: var(--accent); text-decoration: none; border-radius: 50px; font-weight: 800; font-size: 18px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); transition: all 0.4s var(--transition); }
+.cta-btn:hover { transform: translateY(-5px); box-shadow: 0 30px 80px rgba(0,0,0,0.4); background: var(--primary); color: white; }
+
+/* Contact Section */
+.contact-section { display: grid; grid-template-columns: 1fr 1fr; min-height: 700px; }
+.contact-left { background: var(--primary); color: white; padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+.contact-left h2 { font-family: 'Playfair Display', serif; font-size: 56px; margin-bottom: 50px; line-height: 1.1; position: relative; z-index: 2; }
+.contact-info-grid { display: grid; gap: 25px; position: relative; z-index: 2; }
+.contact-card { display: flex; align-items: flex-start; gap: 20px; padding: 25px; background: rgba(255,255,255,0.05); border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.5s; opacity: 0; transform: translateX(-80px); }
+.contact-card:nth-child(1) { animation: cardEntrance 0.6s 0.1s ease-out forwards; }
+.contact-card:nth-child(2) { animation: cardEntrance 0.6s 0.2s ease-out forwards; }
+.contact-card:nth-child(3) { animation: cardEntrance 0.6s 0.3s ease-out forwards; }
+.contact-card:nth-child(4) { animation: cardEntrance 0.6s 0.4s ease-out forwards; }
+@keyframes cardEntrance { to { opacity: 1; transform: translateX(0); } }
+.contact-card:hover { background: rgba(255,255,255,0.1); transform: translateX(15px); border-color: var(--accent); box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+.contact-icon { width: 55px; height: 55px; background: var(--accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; transition: all 0.4s; }
+.contact-card:hover .contact-icon { background: var(--gold); transform: scale(1.15) rotate(360deg); }
+.contact-details h4 { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 8px; font-weight: 700; }
+.contact-details p, .contact-details a { font-size: 18px; font-weight: 600; color: white; text-decoration: none; line-height: 1.5; }
+.contact-details a:hover { color: var(--accent); }
+.contact-right { position: relative; background: var(--light); overflow: hidden; }
+.map-wrapper { position: absolute; inset: 0; overflow: hidden; }
+.map-wrapper iframe { width: 100%; height: 120%; border: 0; margin-top: -10%; filter: grayscale(100%) contrast(1.1); }
+.map-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: var(--light); z-index: 10; }
+
+/* Footer */
+footer { background: var(--dark); color: rgba(255,255,255,0.7); padding: 0; font-size: 15px; }
+.footer-main { max-width: 1400px; margin: 0 auto; padding: 80px 60px 40px; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.5fr; gap: 60px; }
+.footer-logo-wrap { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; text-decoration: none; }
+.footer-logo-symbol { width: 55px; height: 55px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 14px; display: flex; align-items: center; justify-content: center; padding: 8px; transition: all 0.4s var(--transition); }
+.footer-logo-symbol img { width: 100%; height: 100%; object-fit: contain; }
+.footer-logo-wrap:hover .footer-logo-symbol { transform: scale(1.08) rotate(3deg); border-color: var(--accent); background: rgba(0,102,255,0.1); }
+.footer-brand h3 { font-family: 'Playfair Display', serif; font-size: 24px; color: white; margin-bottom: 5px; }
+.footer-brand .tagline { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; font-weight: 600; }
+.footer-brand p { line-height: 1.8; margin-bottom: 25px; font-size: 14px; }
+.footer-column h4 { color: white; font-size: 16px; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; letter-spacing: 1px; position: relative; padding-bottom: 10px; }
+.footer-column h4::after { content: ''; position: absolute; bottom: 0; left: 0; width: 40px; height: 2px; background: var(--accent); }
+.footer-links { list-style: none; }
+.footer-links li { margin-bottom: 12px; }
+.footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: all 0.3s; display: flex; align-items: center; gap: 10px; }
+.footer-links a::before { content: '→'; opacity: 0; transform: translateX(-10px); transition: all 0.3s; color: var(--accent); }
+.footer-links a:hover { color: white; padding-left: 5px; }
+.footer-links a:hover::before { opacity: 1; transform: translateX(0); }
+.footer-contact-item { display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; font-size: 14px; }
+.footer-contact-item i { color: var(--gold); font-size: 16px; margin-top: 3px; }
+.footer-contact-item div strong { color: white; display: block; margin-bottom: 3px; font-weight: 600; }
+.footer-newsletter { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.1); margin-top: 20px; }
+.footer-newsletter h5 { color: white; margin-bottom: 15px; font-size: 14px; }
+.newsletter-form { display: flex; gap: 10px; }
+.newsletter-form input { flex: 1; padding: 12px 16px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); border-radius: 8px; color: white; font-size: 14px; outline: none; transition: all 0.3s; }
+.newsletter-form input::placeholder { color: rgba(255,255,255,0.4); }
+.newsletter-form input:focus { border-color: var(--accent); background: rgba(255,255,255,0.1); }
+.newsletter-form button { padding: 12px 20px; background: var(--accent); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+.newsletter-form button:hover { background: var(--gold); transform: translateY(-2px); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 30px 60px; background: rgba(0,0,0,0.2); }
+.footer-bottom-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.footer-social { display: flex; gap: 15px; }
+.footer-social a { width: 45px; height: 45px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; transition: all 0.4s; text-decoration: none; }
+.footer-social a:hover { background: var(--accent); transform: translateY(-5px); border-color: var(--accent); }
+.footer-social a.whatsapp:hover { background: #25D366; border-color: #25D366; }
+.footer-social a.linkedin:hover { background: #0077b5; border-color: #0077b5; }
+.footer-legal { display: flex; gap: 30px; font-size: 13px; }
+.footer-legal a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.3s; }
+.footer-legal a:hover { color: var(--gold); }
+
+/* ============================================
+   RESPONSIVE BREAKPOINTS - COMPREHENSIVE
+   ============================================ */
+
+/* Large tablets and small desktops */
+@media (max-width: 1200px) { 
+    .ind-large, .ind-medium { grid-column: span 6 !important; height: 500px !important; } 
+    .ind-small { grid-column: span 6 !important; height: 400px !important; } 
+    .service-card.featured { grid-column: span 3; } 
+    .about-container { grid-template-columns: 1fr; gap: 60px; } 
+    .about-images { height: 400px; } 
+    .footer-main { grid-template-columns: 1fr 1fr; } 
+}
+
+/* Tablets */
+@media (max-width: 1024px) { 
+    nav { padding: 15px 30px; } 
+    .nav-links { 
+        position: fixed; top: 0; right: -100%; width: 80%; max-width: 400px; height: 100vh; 
+        background: white; flex-direction: column; padding: 100px 40px; gap: 30px; 
+        transition: right 0.4s var(--transition); box-shadow: -10px 0 50px rgba(0,0,0,0.1); 
+    } 
+    .nav-links.active { right: 0; } 
+    .nav-links a { color: var(--primary); font-size: 20px; } 
+    .mobile-toggle { display: flex; } 
+    .ind-card { grid-column: span 12 !important; height: 400px !important; } 
+    .services-grid { grid-template-columns: 1fr; } 
+    .service-card.featured { display: flex; flex-direction: column; grid-column: span 1; } 
+    .contact-section { grid-template-columns: 1fr; } 
+    .contact-right { height: 400px; position: relative; } 
+    .timeline-item { grid-template-columns: 1fr; gap: 30px; margin-left: 60px; } 
+    .timeline-item:nth-child(even) .timeline-content, .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; text-align: left; } 
+    .timeline-dot { grid-column: 1 !important; justify-self: start; margin-left: -60px; } 
+    .process-section::before { left: 40px; } 
+    
+    /* Hero fixes for tablet */
+    .hero { padding: 0 40px; }
+    .hero-content { max-width: 100%; }
+}
+
+/* Mobile devices */
+@media (max-width: 768px) { 
+    /* Hero Section Mobile Fixes */
+    .hero { 
+        height: 100vh;
+        height: 100dvh;
+        min-height: 500px;
+        padding: 0 20px; 
+    } 
+    .hero-content { 
+        margin-top: 100px; 
+        text-align: left; 
+        align-items: flex-start;
+    } 
+    .hero h2 { 
+        font-size: clamp(28px, 8vw, 40px); 
+        letter-spacing: -1px; 
+        line-height: 1.2;
+        margin-bottom: 20px;
+    } 
+    .hero p { 
+        font-size: 16px; 
+        margin-left: 0; 
+        margin-right: 0; 
+        margin-bottom: 30px;
+        max-width: 100%;
+    } 
+    .hero-badge { 
+        font-size: 11px; 
+        padding: 10px 16px; 
+        margin-bottom: 20px;
+    } 
+    .whatsapp-cta { 
+        padding: 16px 24px; 
+        font-size: 15px; 
+        width: auto; 
+        justify-content: center;
+    } 
+    .response-time { 
+        justify-content: flex-start; 
+        font-size: 13px; 
+    } 
+    .scroll-indicator {
+        bottom: 20px;
+    }
+    
+    /* Other sections mobile */
+    .about-section, .industries-section, .services-section, .process-section, .cta-section { padding: 80px 20px; } 
+    .about-container { gap: 40px; } 
+    .about-images { height: 300px; order: -1; } 
+    .about-img-main { width: 85%; height: 85%; } 
+    .about-img-secondary { width: 45%; height: 35%; } 
+    .about-badge { padding: 20px; left: -10px; bottom: 10%; } 
+    .about-badge .num { font-size: 36px; } 
+    .about-content h2 { font-size: 28px; text-align: center; } 
+    .about-content > p { font-size: 16px; text-align: center; } 
+    .about-stats { grid-template-columns: repeat(3, 1fr); gap: 15px; } 
+    .stat-item { padding: 15px 10px; } 
+    .stat-item h3 { font-size: 24px; } 
+    .stat-item p { font-size: 11px; } 
+    .section-header { margin-bottom: 50px; } 
+    .sec-title { font-size: 28px; } 
+    .sec-subtitle { font-size: 16px; } 
+    .service-card { padding: 30px 25px; } 
+    .service-title { font-size: 22px; } 
+    .service-text { font-size: 14px; } 
+    .service-img { height: 160px; } 
+    .process-section { padding: 80px 20px; } 
+    .process-section::before { left: 30px; } 
+    .timeline-item { margin-left: 40px; margin-bottom: 50px; } 
+    .timeline-dot { width: 60px; height: 60px; font-size: 20px; margin-left: -40px; } 
+    .timeline-content h3 { font-size: 22px; } 
+    .timeline-content p { font-size: 14px; } 
+    .timeline-img { height: 180px; } 
+    .contact-left { padding: 60px 25px; } 
+    .contact-left h2 { font-size: 36px; text-align: center; } 
+    .contact-card { padding: 20px; } 
+    .contact-icon { width: 45px; height: 45px; font-size: 18px; } 
+    .contact-details p, .contact-details a { font-size: 15px; } 
+    .footer-main { grid-template-columns: 1fr; padding: 60px 25px 30px; gap: 40px; } 
+    .footer-bottom { padding: 20px 25px; } 
+    .footer-bottom-content { flex-direction: column; text-align: center; } 
+    .floating-contact { right: 15px; bottom: 15px; gap: 10px; } 
+    .float-btn { width: 50px; height: 50px; font-size: 20px; } 
+    .brand-text { font-size: 18px; letter-spacing: 1px; } 
+    .logo-subtitle { font-size: 10px; letter-spacing: 2px; } 
+    .cta-section { padding: 80px 20px; }
+    .cta-section h2 { font-size: 28px; }
+    .cta-btn { padding: 18px 36px; font-size: 16px; width: 100%; justify-content: center; }
+    
+    /* Navigation mobile */
+    nav { padding: 12px 20px; }
+    nav.scrolled { padding: 10px 20px; }
+    .logo-symbol { width: 60px; height: 60px; }
+    nav.scrolled .logo-symbol { width: 50px; height: 50px; }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) { 
+    .hero { 
+        min-height: 480px;
+        padding: 0 16px; 
+    }
+    .hero-content {
+        margin-top: 90px;
+    }
+    .hero h2 { 
+        font-size: 26px;
+        letter-spacing: -0.5px;
+    } 
+    .hero p { 
+        font-size: 15px; 
+        line-height: 1.5;
+    }
+    .hero-badge {
+        font-size: 10px;
+        padding: 8px 14px;
+        letter-spacing: 2px;
+    }
+    .whatsapp-cta {
+        padding: 14px 20px;
+        font-size: 14px;
+        width: 100%;
+    }
+    .about-stats { grid-template-columns: 1fr; gap: 10px; } 
+    .stat-item { display: flex; align-items: center; justify-content: space-between; text-align: left; padding: 15px 20px; } 
+    .stat-item h3 { margin-bottom: 0; } 
+    .ind-content { padding: 25px; } 
+    .ind-title { font-size: 24px; } 
+    .ind-desc { font-size: 14px; }
+    .service-card.featured { padding: 25px 20px; }
+    .service-title { font-size: 20px; }
+    .timeline-dot { width: 50px; height: 50px; font-size: 18px; }
+    .timeline-content h3 { font-size: 20px; }
+    .contact-left h2 { font-size: 28px; }
+    .contact-details p, .contact-details a { font-size: 14px; }
+}
+
+/* Fix for very small devices */
+@media (max-width: 360px) {
+    .hero h2 {
+        font-size: 24px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+    .brand-text {
+        font-size: 16px;
+    }
+}
+
+/* Landscape mode fixes */
+@media (max-height: 600px) and (orientation: landscape) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 100px 40px 60px;
+    }
+    .hero-content {
+        margin-top: 60px;
+    }
+    .scroll-indicator {
+        display: none;
+    }
+}
+
+/* iOS safe area support */
+@supports (padding: max(0px)) {
+    .floating-contact {
+        right: max(15px, env(safe-area-inset-right));
+        bottom: max(15px, env(safe-area-inset-bottom));
+    }
+    
+    nav {
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
+    }
+    
+    .hero {
+        padding-left: max(60px, env(safe-area-inset-left));
+        padding-right: max(60px, env(safe-area-inset-right));
+    }
+}
+
+@media (max-width: 768px) {
+    @supports (padding: max(0px)) {
+        .hero {
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+        }
+    }
+}
+
+/* Prevent horizontal overflow */
+html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+</style>
+</head>
+<body>
+
+<div id="preloader"><div class="loader-3d"></div></div>
+
+<div class="floating-contact" id="floatContact">
+  <a href="https://wa.me/919611391279?text=Hello%20DESIGN%20AID%20ENGINEERING" class="float-btn whatsapp-btn" target="_blank"><i class="fab fa-whatsapp"></i></a>
+  <a href="tel:+919611391279" class="float-btn call-btn"><i class="fas fa-phone"></i></a>
+</div>
+
+<nav id="navbar">
+  <div class="logo-wrap">
+    <a href="#" class="logo-symbol" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+      <img src="logo-symbol.png.jpeg.jpeg" alt="DESIGN AID ENGINEERING">
+    </a>
+    <div class="logo-text">
+      <div class="brand-text">DESIGN AID ENGINEERING</div>
+      <div class="logo-subtitle">Applied Innovation in design</div>
+    </div>
+  </div>
+  <div class="mobile-toggle" id="mobileToggle"><span></span><span></span><span></span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#industries">Industries</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="careers.html">Careers</a>
+    <a href="#contact">Contact</a>
+    <a href="https://wa.me/919611391279" class="nav-cta" target="_blank">Get Quote</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-award"></i> Trusted Engineering Partner</div>
+    <h2>Concept to <em>Production</em></h2>
+    <p>End-to-end engineering design services. From aerospace components to medical devices, we deliver uncompromising quality at scale.</p>
+    <a href="https://wa.me/919611391279" class="whatsapp-cta" target="_blank"><i class="fab fa-whatsapp"></i> Get Free Quote on WhatsApp</a>
+    <div class="response-time"><i class="fas fa-clock"></i><span>Response within 2 hours</span></div>
+  </div>
+  <div class="scroll-indicator"><span>Scroll</span><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<section class="about-section" id="about">
+  <div class="about-container">
+    <div class="about-images" id="aboutImages">
+      <img src="cta-bg.jpg.avif" alt="Engineering Team" class="about-img-main">
+      <img src="about-secondary.jpg" alt="Workshop" class="about-img-secondary">
+      <div class="about-badge"><span class="num">15+</span><span class="text">Years<br>Excellence</span></div>
+    </div>
+    <div class="about-content" id="aboutContent">
+      <div class="sec-tag">About Us</div>
+      <h2>Engineering Vision,<br>Delivered</h2>
+      <p>DESIGN AID ENGINEERING is a premier engineering services company specializing in end-to-end R&D solutions.</p>
+      <p>Our multidisciplinary team combines innovation with efficiency across Aerospace, Healthcare, Industrial, and Transportation sectors.</p>
+      <div class="about-stats">
+        <div class="stat-item"><h3>50+</h3><p>Projects Completed</p></div>
+        <div class="stat-item"><h3>20</h3><p>Expert Engineers</p></div>
+        <div class="stat-item"><h3>98%</h3><p>Client Satisfaction</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="industries-section" id="industries">
+  <div class="section-header" id="indHeader">
+    <div class="sec-tag">Our Sectors</div>
+    <h2 class="sec-title">Industries We Serve</h2>
+    <p class="sec-subtitle">Specialized expertise across critical industrial domains</p>
+  </div>
+  <div class="industries-grid">
+    <div class="ind-card ind-large ind-1" data-delay="0">
+      <div class="ind-bg"></div><div class="ind-overlay"></div>
+      <div class="ind-content"><span class="ind-num">01</span><h3 class="ind-title">Industrial</h3><p class="ind-desc">Heavy machinery and automation systems.</p></div>
+    </div>
+    <div class="ind-card ind-medium ind-2" data-delay="100">
+      <div class="ind-bg"></div><div class="ind-overlay"></div>
+      <div class="ind-content"><span class="ind-num">02</span><h3 class="ind-title">Transportation</h3><p class="ind-desc">Automotive systems and EV components.</p></div>
+    </div>
+    <div class="ind-card ind-small ind-3" data-delay="200">
+      <div class="ind-bg"></div><div class="ind-overlay"></div>
+      <div class="ind-content"><span class="ind-num">03</span><h3 class="ind-title">Healthcare</h3><p class="ind-desc">Medical devices and equipment.</p></div>
+    </div>
+    <div class="ind-card ind-small ind-4" data-delay="300">
+      <div class="ind-bg"></div><div class="ind-overlay"></div>
+      <div class="ind-content"><span class="ind-num">04</span><h3 class="ind-title">Aerospace</h3><p class="ind-desc">High-precision components.</p></div>
+    </div>
+    <div class="ind-card ind-small ind-5" data-delay="400">
+      <div class="ind-bg"></div><div class="ind-overlay"></div>
+      <div class="ind-content"><span class="ind-num">05</span><h3 class="ind-title">Electromechanical</h3><p class="ind-desc">Integrated smart systems.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="services-section" id="services">
+  <div class="section-header" id="servHeader">
+    <div class="sec-tag">Capabilities</div>
+    <h2 class="sec-title">We Design It. We Build It.</h2>
+    <p class="sec-subtitle">Comprehensive engineering services from concept to production</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card featured" data-delay="0">
+      <div>
+        <span class="service-tag"><i class="fas fa-star"></i> Flagship Service</span>
+        <h3 class="service-title">New Product Development</h3>
+        <p class="service-text">End-to-end development from concept to production. We've delivered 15+ products.</p>
+      </div>
+      <div class="service-img"><img src="product-development.jpg" alt="Product Development"></div>
+    </div>
+    <div class="service-card" data-delay="100">
+      <span class="service-tag">Systems</span>
+      <h3 class="service-title">Material Handling</h3>
+      <p class="service-text">Conveyor systems and SPMs for automotive applications.</p>
+      <div class="service-img"><img src="material-handling.jpg" alt="Material Handling"></div>
+    </div>
+    <div class="service-card" data-delay="200">
+      <span class="service-tag">Analysis</span>
+      <h3 class="service-title">Reverse Engineering</h3>
+      <p class="service-text">10+ projects completed across aerospace and automotive.</p>
+      <div class="service-img"><img src="reverse-engineering.jpg" alt="Reverse Engineering"></div>
+    </div>
+    <div class="service-card" data-delay="300">
+      <span class="service-tag">Precision</span>
+      <h3 class="service-title">Aerospace & Defence</h3>
+      <p class="service-text">Forging tool design and assembly tooling.</p>
+      <div class="service-img"><img src="aerospace.jpg" alt="Aerospace"></div>
+    </div>
+    <div class="service-card" data-delay="400">
+      <span class="service-tag">Strategy</span>
+      <h3 class="service-title">Should Cost Analysis</h3>
+      <p class="service-text">Data-driven cost optimization with 10+ years expertise.</p>
+      <div class="service-img"><img src="costing.jpg" alt="Costing"></div>
+    </div>
+    <div class="service-card" data-delay="500">
+      <span class="service-tag">Talent</span>
+      <h3 class="service-title">Staffing & Training</h3>
+      <p class="service-text">6-month intensive training programs with job assurance.</p>
+      <div class="service-img"><img src="staffing.jpg" alt="Training"></div>
+    </div>
+  </div>
+</section>
+
+<section class="process-section" id="process">
+  <div class="process-container">
+    <div class="process-header" id="processHeader">
+      <div class="sec-tag" style="background: rgba(255,255,255,0.1); color: white;">How We Work</div>
+      <h2>Our Engineering Process</h2>
+      <p style="color: rgba(255,255,255,0.7); max-width: 600px; margin: 20px auto 0;">From concept to production</p>
+    </div>
+    <div class="timeline-item" data-delay="0">
+      <div class="timeline-content">
+        <h3>Research & Benchmarking</h3>
+        <p>Market analysis and competitive benchmarking.</p>
+        <div class="timeline-img"><img src="costing.jpg" alt="Research"></div>
+      </div>
+      <div class="timeline-dot"><i class="fas fa-search"></i></div>
+      <div></div>
+    </div>
+    <div class="timeline-item" data-delay="100">
+      <div></div>
+      <div class="timeline-dot"><i class="fas fa-lightbulb"></i></div>
+      <div class="timeline-content">
+        <h3>Concept Development</h3>
+        <p>Architectural layout and feasibility studies.</p>
+        <div class="timeline-img"><img src="concept.jpg" alt="Concept"></div>
+      </div>
+    </div>
+    <div class="timeline-item" data-delay="200">
+      <div class="timeline-content">
+        <h3>CAD & DFMA Engineering</h3>
+        <p>Detailed 3D modeling and assembly design.</p>
+        <div class="timeline-img"><img src="cad.jpg" alt="CAD"></div>
+      </div>
+      <div class="timeline-dot"><i class="fas fa-drafting-compass"></i></div>
+      <div></div>
+    </div>
+    <div class="timeline-item" data-delay="300">
+      <div></div>
+      <div class="timeline-dot"><i class="fas fa-vial"></i></div>
+      <div class="timeline-content">
+        <h3>Analysis & Validation</h3>
+        <p>FEA, thermal analysis, and NVH testing.</p>
+        <div class="timeline-img"><img src="reverse-engineering.jpg" alt="Testing"></div>
+      </div>
+    </div>
+    <div class="timeline-item" data-delay="400">
+      <div class="timeline-content">
+        <h3>Prototype & Production</h3>
+        <p>Rapid prototyping and manufacturing execution.</p>
+        <div class="timeline-img"><img src="prototype and production.jpg" alt="Production"></div>
+      </div>
+      <div class="timeline-dot"><i class="fas fa-industry"></i></div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2>Ready to Engineer Something Extraordinary?</h2>
+    <p>Let's discuss your project requirements and optimal development strategies.</p>
+    <a href="https://wa.me/919611391279" class="cta-btn" target="_blank"><i class="fab fa-whatsapp"></i> Discuss on WhatsApp</a>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <h2>Let's<br>Connect</h2>
+    <div class="contact-info-grid">
+      <div class="contact-card address-card">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="contact-details">
+          <h4>Visit Us</h4>
+          <p>Plot #9, 3rd Main, 10th Cross,<br>1st Stage, Peenya Industrial Area,<br>Bengaluru 560058, Karnataka, India</p>
+          <a href="https://maps.app.goo.gl/uMP63D4Cch8BPMKYA" target="_blank" style="color: var(--gold); font-size: 14px; margin-top: 8px; display: inline-block;"><i class="fas fa-directions"></i> Get Directions</a>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+        <div class="contact-details"><h4>Call Us</h4><a href="tel:+919611391279">+91 96113 91279</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon" style="background: #25D366;"><i class="fab fa-whatsapp"></i></div>
+        <div class="contact-details"><h4>WhatsApp</h4><a href="https://wa.me/919611391279" target="_blank">+91 96113 91279</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+        <div class="contact-details"><h4>Email Us</h4><a href="mailto:info@designaidengg.com">info@designaidengg.com</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="map-wrapper">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.1!2d77.5057!3d13.0329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDAxJzU4LjQiTiA3N8KwMzAnMjAuNSJF!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
+      <div class="map-overlay"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-main">
+    <div class="footer-brand">
+      <a href="#" class="footer-logo-wrap" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+        <div class="footer-logo-symbol"><img src="logo-symbol.png.jpeg.jpeg" alt="DESIGN AID ENGINEERING"></div>
+        <div><h3>DESIGN AID ENGINEERING</h3><span class="tagline">Applied Innovation in design</span></div>
+      </a>
+      <p>End-to-end engineering excellence from concept to production. Delivering uncompromising quality across Aerospace, Healthcare, Industrial, and Transportation sectors.</p>
+    </div>
+    <div class="footer-column">
+      <h4>Quick Links</h4>
+      <ul class="footer-links">
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#services">Our Services</a></li>
+        <li><a href="#industries">Industries</a></li>
+        <li><a href="#process">Our Process</a></li>
+        <li><a href="careers.html">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">New Product Development</a></li>
+        <li><a href="#services">Reverse Engineering</a></li>
+        <li><a href="#services">Material Handling</a></li>
+        <li><a href="#services">Aerospace & Defence</a></li>
+      </ul>
+    </div>
+    <div class="footer-column">
+      <h4>Contact Info</h4>
+      <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><div><strong>Address</strong>Plot #9, 3rd Main, 10th Cross, Peenya, Bangalore</div></div>
+      <div class="footer-contact-item"><i class="fas fa-phone"></i><div><strong>Phone</strong>+91 96113 91279</div></div>
+      <div class="footer-contact-item"><i class="fas fa-clock"></i><div><strong>Working Hours</strong>Mon - Sat: 9:00 AM - 6:30 PM</div></div>
+      <div class="footer-newsletter">
+        <h5>Subscribe to Our Newsletter</h5>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Thank you for subscribing!');">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-bottom-content">
+      <div class="footer-social">
+        <a href="https://www.linkedin.com/in/design-aid-engineering" class="linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://wa.me/919611391279" class="whatsapp" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p>&copy; 2024 DESIGN AID ENGINEERING. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Preloader
+window.addEventListener('load', function() { 
+    setTimeout(function() { 
+        document.getElementById('preloader').classList.add('hidden'); 
+    }, 800); 
+});
+
+// Navbar scroll effect
+const navbar = document.getElementById('navbar');
+const mobileToggle = document.getElementById('mobileToggle');
+const navLinks = document.getElementById('navLinks');
+
+window.addEventListener('scroll', function() {
+    if (window.scrollY > 100) { 
+        navbar.classList.add('scrolled'); 
+    } else { 
+        navbar.classList.remove('scrolled'); 
+    }
+    
+    const floatContact = document.getElementById('floatContact');
+    if (window.scrollY > window.innerHeight * 0.8) { 
+        floatContact.classList.add('visible'); 
+    } else { 
+        floatContact.classList.remove('visible'); 
+    }
+});
+
+// Mobile menu toggle
+mobileToggle.addEventListener('click', function() { 
+    this.classList.toggle('active'); 
+    navLinks.classList.toggle('active'); 
+});
+
+// Close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(link => { 
+    link.addEventListener('click', () => { 
+        mobileToggle.classList.remove('active'); 
+        navLinks.classList.remove('active'); 
+    }); 
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => { 
+    anchor.addEventListener('click', function (e) { 
+        e.preventDefault(); 
+        const target = document.querySelector(this.getAttribute('href')); 
+        if (target) { 
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+        } 
+    }); 
+});
+
+// Intersection Observer for animations
+const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+const observer = new IntersectionObserver((entries) => { 
+    entries.forEach(entry => { 
+        if (entry.isIntersecting) { 
+            const delay = entry.target.dataset.delay || 0; 
+            setTimeout(() => { 
+                entry.target.classList.add('visible'); 
+            }, delay); 
+        } 
+    }); 
+}, observerOptions);
+
+document.querySelectorAll('.about-images, .about-content, .section-header, .ind-card, .service-card, .timeline-item, #processHeader, .stat-item').forEach(el => { 
+    observer.observe(el); 
+});
+</script>
+<script src="service-detail.js"></script>
+</body>
+</html>
